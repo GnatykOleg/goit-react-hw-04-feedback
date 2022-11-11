@@ -1,6 +1,6 @@
 # React feedback with React hooks
 
-## The code of this application was refactored: [feeback](https://github.com/GnatykOleg/react-feedback) using React hooks (useState, useEffect)
+## The code of this application was refactored: [feedback](https://github.com/GnatykOleg/react-feedback) using React hooks (useState, useEffect)
 
 #### 1. An application for collecting statistics has been created. There are only three options for the return connections: good, neutral, and bad.
 
