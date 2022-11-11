@@ -1,102 +1,24 @@
-**Read in other languages: [Русский](README.md), [Polska](README.pl.md).**
+# React feedback with React hooks
 
-# React homework template
+## The code of this application was refactored: [feeback](https://github.com/GnatykOleg/react-feedback) using React hooks (useState, useEffect)
 
-Этот проект был создан при помощи
-[Create React App](https://github.com/facebook/create-react-app). Для знакомства
-и настройки дополнительных возможностей
-[обратись к документации](https://facebook.github.io/create-react-app/docs/getting-started).
+#### 1. An application for collecting statistics has been created. There are only three options for the return connections: good, neutral, and bad.
 
-## Подготовка нового проекта
+#### 2. The app displays the number of reviews collected for each category. The application does not save feedback statistics between different sessions (update pages). The state of the application is as follows: state = { good: 0, neutral: 0, bad: 0 }
 
-1. Убедись что на компьютере установлена LTS-версия Node.js.
-   [Скачай и установи](https://nodejs.org/en/) её если необходимо.
-2. Склонируй этот репозиторий.
-3. Измени имя папки с `react-homework-template` на имя своего проекта.
-4. Создай новый пустой репозиторий на GitHub.
-5. Открой проект в VSCode, запусти терминал и свяжи проект с GitHub-репозиторием
-   [по инструкции](https://docs.github.com/en/get-started/getting-started-with-git/managing-remote-repositories#changing-a-remote-repositorys-url).
-6. Установи базовые зависимости проекта командой `npm install`.
-7. Запусти режим разработки, выполнив команду `npm start`.
-8. Перейди в браузере по адресу [http://localhost:3000](http://localhost:3000).
-   Эта страница будет автоматически перезагружаться после сохранения изменений в
-   файлах проекта.
+#### 3. Expanded the functionality of the application so that the interface displays more statistics about the collected reviews. Added display of the total number of collected reviews from all categories and the percentage of positive reviews. For This created the helper methods countTotalFeedback() and countPositiveFeedbackPercentage() which counts these values ​​based on data in the state (computed data).
 
-## Деплой
+#### 4. The application has been refactored. The application state should remain in the root <App> component.
 
-Для настройки деплоя проекта необходимо выполнить несколько дополнительных шагов
-по настройке твоего репозитория. Зайди во вкладку `Settings` и в подсекции
-`Actions` выбери выбери пункт `General`.
+- Moved the display of statistics to a separate component
+  <Statistics good={} neutral={} bad={} total={} positivePercentage={}>.
 
-![GitHub actions settings](./assets/actions-config-step-1.png)
+- Moved the block of buttons to the component
+  <FeedbackOptions options={} onLeaveFeedback={}>.
+- Created a Section title="" component that renders a section with a title and
+  children (children). Wrapped each of <Statistics> and <FeedbackOptions> in
+  created section component.
 
-Пролистай страницу до последней секции, в которой выбери опции как на следующем
-изображении и нажми `Save`. Без этих настроек у сборки будет недостаточно прав
-для автоматизации процесса деплоя.
+#### 5. Expanded the functionality of the application so that the statistics block is rendered only after how at least one review was collected. Missing statistics message moved to the <Notification message="There is no feedback"> component.
 
-![GitHub actions settings](./assets/actions-config-step-2.png)
-
-Продакшн версия проекта будет автоматически проходить линтинг, собираться и
-деплоиться на GitHub Pages, в ветку `gh-pages`, каждый раз когда обновляется
-ветка `main`. Например, после прямого пуша или принятого пул-реквеста. Для этого
-необходимо в файле `package.json` отредактировать поле `homepage`, заменив
-`your_username` и `your_repo_name` на свои, и отправить изменения на GitHub.
-
-```json
-"homepage": "https://your_username.github.io/your_repo_name/"
-```
-
-Далее необходимо зайти в настройки GitHub-репозитория (`Settings` > `Pages`) и
-выставить раздачу продакшн версии файлов из папки `/root` ветки `gh-pages`, если
-это небыло сделано автоматически.
-
-![GitHub Pages settings](./assets/repo-settings.png)
-
-### Статус деплоя
-
-Статус деплоя крайнего коммита отображается иконкой возле его идентификатора.
-
-- **Желтый цвет** - выполняется сборка и деплой проекта.
-- **Зеленый цвет** - деплой завершился успешно.
-- **Красный цвет** - во время линтинга, сборки или деплоя произошла ошибка.
-
-Более детальную информацию о статусе можно посмотреть кликнув по иконке, и в
-выпадающем окне перейти по ссылке `Details`.
-
-![Deployment status](./assets/status.png)
-
-### Живая страница
-
-Через какое-то время, обычно пару минут, живую страницу можно будет посмотреть
-по адресу указанному в отредактированном свойстве `homepage`. Например, вот
-ссылка на живую версию для этого репозитория
-[https://goitacademy.github.io/react-homework-template](https://goitacademy.github.io/react-homework-template).
-
-Если открывается пустая страница, убедись что во вкладке `Console` нет ошибок
-связанных с неправильными путями к CSS и JS файлам проекта (**404**). Скорее
-всего у тебя неправильное значение свойства `homepage` в файле `package.json`.
-
-### Маршрутизация
-
-Если приложение использует библиотеку `react-router-dom` для маршрутизации,
-необходимо дополнительно настроить компонент `<BrowserRouter>`, передав в пропе
-`basename` точное название твоего репозитория. Слеши в начале и конце строки
-обязательны.
-
-```jsx
-<BrowserRouter basename="/your_repo_name/">
-  <App />
-</BrowserRouter>
-```
-
-## Как это работает
-
-![How it works](./assets/how-it-works.png)
-
-1. После каждого пуша в ветку `main` GitHub-репозитория, запускается специальный
-   скрипт (GitHub Action) из файла `.github/workflows/deploy.yml`.
-2. Все файлы репозитория копируются на сервер, где проект инициализируется и
-   проходит линтинг и сборку перед деплоем.
-3. Если все шаги прошли успешно, собранная продакшн версия файлов проекта
-   отправляется в ветку `gh-pages`. В противном случае, в логе выполнения
-   скрипта будет указано в чем проблема.
+![feedback](./public/feedback.jpg)
